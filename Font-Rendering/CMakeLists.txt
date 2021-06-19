@@ -29,6 +29,7 @@ include_directories("${FREETYPE_HOME}/include/freetype2")
 add_library(glfw SHARED IMPORTED)
 SET_TARGET_PROPERTIES(glfw PROPERTIES IMPORTED_LOCATION "${GLFW_HOME}/lib/libglfw.3.dylib")
 
+# 添加 FreeType 预编译库
 add_library(freetype SHARED IMPORTED)
 SET_TARGET_PROPERTIES(freetype PROPERTIES IMPORTED_LOCATION "${FREETYPE_HOME}/lib/libfreetype.dylib")
 
