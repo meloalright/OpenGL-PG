@@ -66,20 +66,23 @@ public:
         return glm::lookAt(Position, Position + Front, Up);
     }
 
-    // processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
-    void ProcessKeyboard(Camera_Movement direction, float deltaTime)
+    void Climb(float deltaTime)
     {
         float velocity = MovementSpeed * deltaTime;
-        float y = Position.y;
-        if (direction == FORWARD)
-            Position += Front * velocity;
-        if (direction == BACKWARD)
-            Position -= Front * velocity;
-        if (direction == LEFT)
-            Position -= Right * velocity;
-        if (direction == RIGHT)
-            Position += Right * velocity;
-        Position.y = y;
+        Position.y += velocity;
+    }
+
+    void Fall(float deltaTime)
+    {
+        float velocity = MovementSpeed * deltaTime;
+        Position.y -= velocity;
+        if (Position.y < 0) {
+            Position.y = 0;
+        }
+    }
+
+    void To(glm::vec3 to) {
+        Position = to;
     }
 
     glm::vec3 getKeyboardNextPositionValue(Camera_Movement direction, float deltaTime)

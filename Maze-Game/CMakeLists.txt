@@ -17,12 +17,14 @@ set(GLFW_HOME $ENV{GLFW_HOME})
 set(GLAD_HOME $ENV{GLAD_HOME})
 set(GLM_HOME $ENV{GLM_HOME})
 set(FREETYPE_HOME $ENV{FREETYPE_HOME})
+set(IRRKLANG_HOME $ENV{IRRKLANG_HOME})
 
 # 设置头文件目录
 include_directories("${GLFW_HOME}/include")
 include_directories("${GLAD_HOME}/include")
 include_directories("${GLM_HOME}/include")
 include_directories("${FREETYPE_HOME}/include/freetype2")
+include_directories("${IRRKLANG_HOME}/include")
 
 # 添加 GLFW3 预编译库
 add_library(glfw SHARED IMPORTED)
@@ -32,8 +34,12 @@ SET_TARGET_PROPERTIES(glfw PROPERTIES IMPORTED_LOCATION "${GLFW_HOME}/lib/libglf
 add_library(freetype SHARED IMPORTED)
 SET_TARGET_PROPERTIES(freetype PROPERTIES IMPORTED_LOCATION "${FREETYPE_HOME}/lib/libfreetype.dylib")
 
+# 添加 irrKang 预编译库
+add_library(irrklang SHARED IMPORTED)
+SET_TARGET_PROPERTIES(irrklang PROPERTIES IMPORTED_LOCATION "${IRRKLANG_HOME}/bin/macosx-gcc/libirrklang.dylib")
+
 # 创建可执行文件
 add_executable(OpenGL-PG main.cpp "lib/glad/src/glad.c")
 
 # 链接 GLFW GLAD OpenGL
-target_link_libraries(OpenGL-PG glfw freetype "-framework OpenGL")
+target_link_libraries(OpenGL-PG glfw freetype irrklang "-framework OpenGL")
